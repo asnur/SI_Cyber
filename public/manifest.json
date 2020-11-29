@@ -1,0 +1,13 @@
+{
+    "name": "Cyber Creative",
+    "short_name": "Cyber Creative",
+    "start_url": "/index.php",
+    "display": "standalone",
+    "background_color": "#3498db",
+    "theme_color": "#3498db",
+    "icons": [{
+        "src": "/icon.png",
+        "sizes": "512x512",
+        "type": "image/png"
+    }]
+}

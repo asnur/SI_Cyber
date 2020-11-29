@@ -38,7 +38,7 @@ if (session()->getFlashdata('pesan')) :
                         <div class="icon">
                             <i class="ion ion-android-person"></i>
                         </div>
-                        <a href="#" class="small-box-footer">Selengkapnya <i class="fa fa-arrow-circle-right"></i></a>
+                        <a href="/admin/anggota" class="small-box-footer">Selengkapnya <i class="fa fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
                 <!-- ./col -->
@@ -53,7 +53,7 @@ if (session()->getFlashdata('pesan')) :
                         <div class="icon">
                             <i class="ion ion-trophy"></i>
                         </div>
-                        <a href="#" class="small-box-footer">Selengkapnya <i class="fa fa-arrow-circle-right"></i></a>
+                        <a href="/admin/prestasi" class="small-box-footer">Selengkapnya <i class="fa fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
                 <!-- ./col -->
@@ -68,7 +68,7 @@ if (session()->getFlashdata('pesan')) :
                         <div class="icon">
                             <i class="ion ion-person-add"></i>
                         </div>
-                        <a href="#" class="small-box-footer">Selengkapnya <i class="fa fa-arrow-circle-right"></i></a>
+                        <a href="/admin/pendaftaran" class="small-box-footer">Selengkapnya <i class="fa fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
                 <!-- ./col -->
@@ -83,7 +83,7 @@ if (session()->getFlashdata('pesan')) :
                         <div class="icon">
                             <i class="ion ion-calendar"></i>
                         </div>
-                        <a href="#" class="small-box-footer">Selengkapnya <i class="fa fa-arrow-circle-right"></i></a>
+                        <a href="/admin/agenda" class="small-box-footer">Selengkapnya <i class="fa fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
                 <!-- ./col -->

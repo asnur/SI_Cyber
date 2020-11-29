@@ -64,12 +64,13 @@
                                             <td align="center"><?= $a['jenis_kelamin']; ?></td>
                                             <td align="center"><?= $a['angkatan']; ?></td>
                                             <td align="center"><?= $a['jabatan']; ?></td>
-                                            <td align="center"><a href="<?= base_url('/admin/edit_anggota/' . $a['username'] . '') ?>" class="btn btn-success"><i class="fa fa-edit"></i></a>
-                                                <form action="<?= base_url('/admin/' . $a['id'] . '')  ?>" class="d-inline">
+                                            <td align="center"><a href="<?= '/admin/edit_anggota/' . $a['username'] . '' ?>" class="btn btn-success"><i class="fa fa-edit"></i></a>
+                                                <form action="/admin/<?= $a['id'] ?>" class="d-inline" method="POST">
+                                                    <?= csrf_field(); ?>
                                                     <input type="hidden" name="_method" value="DELETE">
                                                     <button type="submit" class="btn btn-danger"><i class="fa fa-trash-o"></i></button>
                                                 </form>
-                                                <a href="<?= base_url('/admin/kartu_anggota/' . $a['username'] . '')  ?>" class="btn btn-warning"><i class="fa fa-print"></i></a>
+                                                <a href="<?= '/admin/kartu_anggota/' . $a['username'] . ''  ?>" class="btn btn-warning"><i class="fa fa-print"></i></a>
                                             </td>
                                         </tr>
                                     <?php endforeach; ?>

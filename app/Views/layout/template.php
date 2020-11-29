@@ -6,21 +6,21 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Admin</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="<?= base_url('plugins/fontawesome-free/css/font-awesome.css'); ?>">
-    <link rel="stylesheet" href="<?= base_url('https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css'); ?>">
-    <link rel="stylesheet" href="<?= base_url('plugins/css/style.css'); ?>">
-    <link rel="stylesheet" href="<?= base_url('plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css'); ?>">
-    <link rel="stylesheet" href="<?= base_url('plugins/icheck-bootstrap/icheck-bootstrap.min.css'); ?>">
-    <link rel="stylesheet" href="<?= base_url('plugins/jqvmap/jqvmap.min.css'); ?>">
-    <link rel="stylesheet" href="<?= base_url('dist/css/adminlte.min.css'); ?>">
-    <link rel="stylesheet" href="<?= base_url('plugins/overlayScrollbars/css/OverlayScrollbars.min.css'); ?>">
-    <link rel="stylesheet" href="<?= base_url('plugins/daterangepicker/daterangepicker.css'); ?>">
-    <link rel="stylesheet" href="<?= base_url('plugins/datatables-bs4/css/dataTables.bootstrap4.min.css'); ?>">
-    <link rel="stylesheet" href="<?= base_url('plugins/datatables-responsive/css/responsive.bootstrap4.min.css'); ?>">
-    <link rel="stylesheet" href="<?= base_url('plugins/select2/css/select2.min.css'); ?>">
-    <link rel="stylesheet" href="<?= base_url('plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css'); ?>">
-    <link rel="stylesheet" href="<?= base_url('plugins/summernote/summernote-bs4.css'); ?>">
-    <link rel="stylesheet" href="<?= base_url('plugins/fullcalendar/fullcalendar.css') ?>" />
+    <link rel="stylesheet" href="/plugins/fontawesome-free/css/font-awesome.css">
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" href="/plugins/css/style_admin.css">
+    <link rel="stylesheet" href="/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+    <link rel="stylesheet" href="/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+    <link rel="stylesheet" href="/plugins/jqvmap/jqvmap.min.css">
+    <link rel="stylesheet" href="/dist/css/adminlte.min.css">
+    <link rel="stylesheet" href="/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+    <link rel="stylesheet" href="/plugins/daterangepicker/daterangepicker.css">
+    <link rel="stylesheet" href="/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+    <link rel="stylesheet" href="/plugins/select2/css/select2.min.css">
+    <link rel="stylesheet" href="/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
+    <link rel="stylesheet" href="/plugins/summernote/summernote-bs4.css">
+    <link rel="stylesheet" href="/plugins/fullcalendar/fullcalendar.css" />
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 </head>
 
@@ -39,7 +39,7 @@
             <!-- Right navbar links -->
             <ul class="navbar-nav ml-auto">
                 <!-- Messages Dropdown Menu -->
-                <a href="<?= base_url('login/logout'); ?>" class="btn btn-danger"><i class="fa fa-sign-out"></i> Logout</a>
+                <a href="/login/logout" class="btn btn-danger"><i class="fa fa-sign-out"></i> Logout</a>
 
             </ul>
         </nav>
@@ -48,8 +48,8 @@
         <!-- Main Sidebar Container -->
         <aside class="main-sidebar sidebar-light-maroon elevation-4">
             <!-- Brand Logo -->
-            <a href="<?= base_url('/admin/index') ?>" class="brand-link">
-                <img src="<?= base_url('dist/img/icon.png') ?>" alt="" class="brand-image img-circle">
+            <a href="/admin/index" class="brand-link">
+                <img src="/dist/img/icon.png" alt="" class="brand-image img-circle">
                 <span class="brand-text">Cyber Creative</span>
             </a>
 
@@ -58,7 +58,7 @@
                 <!-- Sidebar user panel (optional) -->
                 <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                     <div class="image">
-                        <img src="<?= base_url('dist/img/' . $_SESSION['admin'][0]['foto']) ?>" class="img-circle elevation-2" alt="User Image">
+                        <img src="/dist/img/<?= $_SESSION['admin'][0]['foto'] ?>" class="img-circle elevation-2" alt="User Image">
                     </div>
                     <div class="info">
                         <a href="#" class="d-block"><?= $_SESSION['admin'][0]['nama']; ?></a>
@@ -135,25 +135,25 @@
     </div>
     <!-- ./wrapper -->
 
-    <script src="<?= base_url('plugins/jquery/jquery.min.js'); ?>"></script>
-    <script src="<?= base_url('plugins/jquery-ui/jquery-ui.min.js'); ?>"></script>
+    <script src="/plugins/jquery/jquery.min.js"></script>
+    <script src="/plugins/jquery-ui/jquery-ui.min.js"></script>
     <script>
         $.widget.bridge('uibutton', $.ui.button)
     </script>
-    <script src="<?= base_url('plugins/bootstrap/js/bootstrap.bundle.min.js'); ?>"></script>
-    <script src="<?= base_url('plugins/moment/moment.min.js'); ?>"></script>
-    <script src="<?= base_url('plugins/bs-custom-file-input/bs-custom-file-input.min.js'); ?>"></script>
-    <script src="<?= base_url('plugins/datatables/jquery.dataTables.min.js'); ?>"></script>
-    <script src="<?= base_url('plugins/datatables-bs4/js/dataTables.bootstrap4.min.js'); ?>"></script>
-    <script src="<?= base_url('plugins/summernote/summernote-bs4.min.js'); ?>"></script>
-    <script src="<?= base_url('plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js'); ?>"></script>
-    <script src="<?= base_url('dist/js/adminlte.js'); ?>"></script>
-    <script src="<?= base_url('dist/js/demo.js'); ?>"></script>
-    <script src="<?= base_url('plugins/bootstrap-show-password-master/src/bootstrap-show-password.js'); ?>"></script>
-    <script src="<?= base_url('plugins/sweetalert2/dist/sweetalert2.all.min.js'); ?>"></script>
-    <script src="<?= base_url('plugins/select2/js/select2.full.min.js'); ?>"></script>
-    <script src="<?= base_url('plugins/moment/moment.min.js') ?>"></script>
-    <script src="<?= base_url('plugins/fullcalendar/fullcalendar.min.js') ?>"></script>
+    <script src="/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="/plugins/moment/moment.min.js"></script>
+    <script src="/plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
+    <script src="/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+    <script src="/plugins/summernote/summernote-bs4.min.js"></script>
+    <script src="/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+    <script src="/dist/js/adminlte.js"></script>
+    <script src="/dist/js/demo.js"></script>
+    <script src="/plugins/bootstrap-show-password-master/src/bootstrap-show-password.js"></script>
+    <script src="/plugins/sweetalert2/dist/sweetalert2.all.min.js"></script>
+    <script src="/plugins/select2/js/select2.full.min.js"></script>
+    <script src="/plugins/moment/moment.min.js"></script>
+    <script src="/plugins/fullcalendar/fullcalendar.min.js"></script>
     <script>
         $(function() {
             $('.textarea').summernote()
@@ -166,7 +166,7 @@
                 header: {
                     left: 'prev,next today',
                     center: 'title',
-                    right: 'month,agendaWeek,agendaDay'
+                    right: 'month,agendaWeek,agendaDay,listMonth'
                 },
                 events: '/admin/load_agenda',
                 selectable: true,

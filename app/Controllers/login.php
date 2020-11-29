@@ -10,7 +10,7 @@ use PHPMailer\PHPMailer\SMTP;
 
 use PHPMailer\PHPMailer\Exception;
 
-class login extends BaseController
+class Login extends BaseController
 {
     protected $anggota;
 
@@ -28,17 +28,17 @@ class login extends BaseController
     {
         $user = $this->request->getVar('user');
         $pass = md5($this->request->getVar('pass'));
-
-        $cek_baris = $this->anggota->where(['email' => $email, 'password' => $pass, 'izin' => 1])->countAllResults();
-        $cek_data = $this->anggota->where(['email' => $email, 'password' => $pass])->find();
+        $cek_baris = $this->anggota->where(['username' => $user, 'password' => $pass, 'izin' => 1])->countAllResults();
+        $cek_data = $this->anggota->where(['username' => $user, 'password' => $pass])->find();
         if ($cek_baris) {
             if ($cek_data[0]['level'] == 'admin') {
                 $_SESSION['admin'] = $cek_data;
                 session()->setFlashdata('pesan', 'Anda Berhasil Login');
                 return redirect()->to('/admin/index');
             } else {
+                $_SESSION['user'] = $cek_data;
                 session()->setFlashdata('pesan', 'Anda Berhasil Login');
-                echo "USER";
+                return redirect()->to('/user/index');
             }
         } else {
             session()->setFlashdata('pesan', 'Anda Gagal Login');
@@ -86,49 +86,45 @@ class login extends BaseController
         $email = $this->request->getVar('email');
         $code = generateRandomNumber();
         $izin = 0;
-        if (empty($nama)) {
-            return view('pages/login/index');
+
+        $to                 = $email;
+        $subject            = 'Verifikasi Pendaftaran';
+        $message            = "<p>Hai $nama untuk mendaftar sebagai member website Cyber Creative anda harus memasuka kode verifikasi dibawah ini</p><br><h3 center>$code</h3><br><p>Apabila gagal dalam melakukan verifikasi silahkah hubungi admin</p>";
+
+        $mail = new PHPMailer(true);
+        $mail->SMTPDebug = SMTP::DEBUG_SERVER;
+        $mail->isSMTP();
+        $mail->Host       = 'smtp.googlemail.com';
+        $mail->SMTPAuth   = true;
+        $mail->Username   = 'cybercreative9208@gmail.com';
+        $mail->Password   = 'cyber9208';
+        $mail->SMTPSecure = 'ssl';
+        $mail->Port       = 465;
+
+        $mail->setFrom('cybercreative9208@gmail.com', 'Cyber Creative');
+        $mail->addAddress($to);
+        $mail->addReplyTo('cybercreative9208@gmail.com', 'Cyber Creative');
+        // Content
+        $mail->isHTML(true);
+        $mail->Subject = $subject;
+        $mail->Body    = $message;
+
+        if ($mail->send()) {
+            $this->anggota->save([
+                'username' => $username,
+                'email' => $email,
+                'password' => $password,
+                'nama' => $nama,
+                'jenis_kelamin' => $jk,
+                'angkatan' => $angkatan,
+                'izin' => $izin,
+                'code' => $code
+            ]);
+            session()->setFlashdata('pesan', 'Pendaftaran Berhasil, Silahkan Cek Email untuk Verifikasi');
+            return redirect()->to('/login/verifikasi/' . $username);
         } else {
-
-            $to                 = $email;
-            $subject            = 'Verifikasi Pendaftaran';
-            $message            = "<p>Hai $nama untuk mendaftar sebagai member website Cyber Creative anda harus memasuka kode verifikasi dibawah ini</p><br><h3 center>$code</h3><br><p>Apabila gagal dalam melakukan verifikasi silahkah hubungi admin</p>";
-
-            $mail = new PHPMailer(true);
-            $mail->SMTPDebug = SMTP::DEBUG_SERVER;
-            $mail->isSMTP();
-            $mail->Host       = 'smtp.googlemail.com';
-            $mail->SMTPAuth   = true;
-            $mail->Username   = 'cybercreative9208@gmail.com';
-            $mail->Password   = 'cyber9208';
-            $mail->SMTPSecure = 'ssl';
-            $mail->Port       = 465;
-
-            $mail->setFrom('cybercreative9208@gmail.com', 'Cyber Creative');
-            $mail->addAddress($to);
-            $mail->addReplyTo('cybercreative9208@gmail.com', 'Cyber Creative');
-            // Content
-            $mail->isHTML(true);
-            $mail->Subject = $subject;
-            $mail->Body    = $message;
-
-            if ($mail->send()) {
-                $this->anggota->save([
-                    'username' => $username,
-                    'email' => $email,
-                    'password' => $password,
-                    'nama' => $nama,
-                    'jenis_kelamin' => $jk,
-                    'angkatan' => $angkatan,
-                    'izin' => $izin,
-                    'code' => $code
-                ]);
-                session()->setFlashdata('pesan', 'Pendaftaran Berhasil, Silahkan Cek Email untuk Verifikasi');
-                return redirect()->to('/login/verifikasi/' . $username);
-            } else {
-                session()->setFlashdata('pesan', 'Pendaftaran Gagal');
-                return redirect()->to('/login/daftar_member');
-            }
+            session()->setFlashdata('pesan', 'Pendaftaran Gagal');
+            return redirect()->to('/login/daftar_member');
         }
     }
 
@@ -370,6 +366,6 @@ class login extends BaseController
     public function logout()
     {
         session_destroy();
-        return redirect()->to('/login/index');
+        return redirect()->to('/');
     }
 }

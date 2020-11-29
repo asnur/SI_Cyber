@@ -91,7 +91,7 @@ if (empty($kartu['foto'])) {
     <img src="dist/img/logo.png" class="logo"><br>
     <div style="position:relative; margin-top:30px;">
         <div style="position:fixed; margin:0% 30%; border:5px lightblue solid; width: 120px; height:120px; border-radius:50%;">
-            <img src="data:image/jpeg;base64,' . base64_encode($kartu['foto']) . '" style="width: 100%; height: 100%;">
+            <img src="dist/img/' . $kartu['foto'] . '" style="width: 100%; height: 100%;">
         </div>
     </div><br>
     <h3 align="center" style="line-height:0px;">' . $kartu['nama'] . '</h3><br>

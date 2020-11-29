@@ -50,6 +50,7 @@
                 </div>
 
                 <form action="/login/save_daftar_member" class="login100-form validate-form daftar" method="POST">
+                    <?= csrf_field(); ?>
                     <span class="login100-form-title">
                         Daftar Member
                     </span>
@@ -128,10 +129,10 @@
                         <span class="txt1">
                             Lupa
                         </span>
-                        <a class="txt2" href="#">
+                        <a class="txt2" href="/login/lupa_password">
                             Username / Password?
                         </a><br>
-                        <a class="txt2" href="/<?= base_url('login/index'); ?>">
+                        <a class="txt2" href="<?= base_url('login/index'); ?>">
                             Sudah Punya Akun Login
                             <i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
                         </a>

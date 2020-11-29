@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+// use Aes as GlobalAes;
 use App\Models\AnggotaCyber;
 
 use App\Models\PrestasiCyber;
@@ -9,6 +10,8 @@ use App\Models\PrestasiCyber;
 use App\Models\Artikel;
 
 use App\Models\Agenda;
+
+use Config\Aes;
 
 use PHPMailer\PHPMailer\PHPMailer;
 
@@ -18,12 +21,13 @@ use PHPMailer\PHPMailer\Exception;
 
 
 
-class admin extends BaseController
+class Admin extends BaseController
 {
 	protected $anggota_cyber;
 	protected $prestasi_cyber;
 	protected $artikel;
 	protected $agenda;
+	// protected $aes;
 
 	public function __construct()
 	{
@@ -31,6 +35,7 @@ class admin extends BaseController
 		$this->prestasi_cyber = new PrestasiCyber();
 		$this->artikel = new Artikel();
 		$this->agenda = new Agenda();
+		// $this->aes = new Aes();
 	}
 
 	public function index()
@@ -38,7 +43,9 @@ class admin extends BaseController
 		if (!isset($_SESSION['admin'])) {
 			return view('pages/login/index');
 		} else {
+			$z = "abcdefghijuklmno0123456789012345";
 			$data = [
+				'aes' => new Aes($z),
 				'prestasi' => $this->prestasi_cyber,
 				'jumlah_anggota' => $this->anggota_cyber->countAllResults(),
 				'jumlah_prestasi' => $this->prestasi_cyber->countAllResults(),
@@ -81,7 +88,9 @@ class admin extends BaseController
 		if (!isset($_SESSION['admin'])) {
 			return view('pages/login/index');
 		} else {
+			$z = "abcdefghijuklmno0123456789012345";
 			$data = [
+				'aes' => new Aes($z),
 				'validation' => \Config\Services::validation()
 			];
 			return view('pages/admin/tambah/anggota', $data);
@@ -233,15 +242,11 @@ class admin extends BaseController
 
 	public function kartu_anggota($username)
 	{
-		if (!isset($_SESSION['admin'])) {
-			return view('pages/login/index');
-		} else {
 		$data_anggota = $this->anggota_cyber->where(['username' => $username])->first();
 		$data = [
 			'kartu' => $data_anggota
 		];
 		return view('/pages/admin/kartu/kartu_anggota', $data);
-	}
 	}
 
 	public function pendaftaran()
@@ -848,18 +853,15 @@ class admin extends BaseController
 
 	public function load_agenda()
 	{
-		if (!isset($_SESSION['admin'])) {
-			return view('pages/login/index');
-		} else {
-			$load = $this->agenda->load();
-			foreach ($load as $row) {
-				$data[] = array(
-					'id'   => $row['id'],
-					'title'   => $row['title'],
-					'start'   => $row['start_event'],
-					'end'   => $row['end_event']
-				);
-			}
+		$load = $this->agenda->load();
+		foreach ($load as $row) {
+			$data[] = array(
+				'id'   => $row['id'],
+				'title'   => $row['title'],
+				'start'   => $row['start_event'],
+				'end'   => $row['end_event']
+			);
+
 			return json_encode($data);
 		}
 	}

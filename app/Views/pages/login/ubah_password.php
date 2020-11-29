@@ -57,6 +57,7 @@
         <div class="container-login100">
             <div class="wrap-login100">
                 <form action="<?= base_url('login/ubah_password/' . $data['id']) ?>" class="login100-form validate-form daftar" method="POST">
+                    <?= csrf_field(); ?>
                     <span class="login100-form-title">
                         Ubah Password
                     </span>

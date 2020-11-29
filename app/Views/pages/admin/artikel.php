@@ -52,7 +52,7 @@
                                         <tr>
                                             <td><?= $a['judul']; ?></td>
                                             <td align="center"><?= $a['tanggal']; ?></td>
-                                            <td align="center"><img src="/dist/img/cover/<?= $a['foto'] ?>" style="width: 150px; height: 80px; object-fit:cover; object-position: center;"></td>
+                                            <td align="center"><img src="/dist/img/cover/<?= ($a['foto'] == '') ? 'none.png' : $a['foto'] ?>" style="width: 150px; height: 80px; object-fit:cover; object-position: center;"></td>
                                             <td align="center"><a href="<?= base_url('/admin/edit_artikel/' . $a['id'] . '') ?>" class="btn btn-success"><i class="fa fa-edit"></i></a>
                                                 <form action="<?= base_url('/admin/hapus_artikel/' . $a['id'] . '')  ?>" class="d-inline">
                                                     <input type="hidden" name="_method" value="DELETE">
@@ -68,5 +68,6 @@
                 </section>
                 <!-- /.content -->
             </div>
+
 
             <?= $this->endSection(); ?>

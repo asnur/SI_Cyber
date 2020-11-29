@@ -14,7 +14,7 @@
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <div class="float-sm-right">
-                        <a href="#" class="btn btn-success"><i class="fa fa-calendar"></i> Daftar Agenda</a>
+                        <!-- <a href="#" class="btn btn-success"><i class="fa fa-calendar"></i> Daftar Agenda</a> -->
                     </div>
                 </div>
             </div><!-- /.row -->

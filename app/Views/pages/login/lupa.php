@@ -57,6 +57,7 @@
         <div class="container-login100">
             <div class="wrap-login100">
                 <form action="/login/cari_email" class="login100-form validate-form daftar" method="POST">
+                    <?= csrf_field(); ?>
                     <span class="login100-form-title">
                         Cari Email
                     </span>

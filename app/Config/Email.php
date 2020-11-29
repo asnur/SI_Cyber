@@ -27,14 +27,14 @@ class Email extends BaseConfig
 	 *
 	 * @var string
 	 */
-	public $userAgent = 'CodeIgniter';
+	public $userAgent = 'Cyber Creative';
 
 	/**
 	 * The mail sending protocol: mail, sendmail, smtp
 	 *
 	 * @var string
 	 */
-	public $protocol = 'mail';
+	public $protocol = 'smtp';
 
 	/**
 	 * The server path to Sendmail.
@@ -48,28 +48,28 @@ class Email extends BaseConfig
 	 *
 	 * @var string
 	 */
-	public $SMTPHost;
+	public $SMTPHost = 'smtp.gmail.com';
 
 	/**
 	 * SMTP Username
 	 *
 	 * @var string
 	 */
-	public $SMTPUser;
+	public $SMTPUser = 'cybercreative9208@gmail.com';
 
 	/**
 	 * SMTP Password
 	 *
 	 * @var string
 	 */
-	public $SMTPPass;
+	public $SMTPPass = 'cyber9208';
 
 	/**
 	 * SMTP Port
 	 *
 	 * @var integer
 	 */
-	public $SMTPPort = 25;
+	public $SMTPPort = 465;
 
 	/**
 	 * SMTP Timeout (in seconds)
@@ -90,7 +90,7 @@ class Email extends BaseConfig
 	 *
 	 * @var string
 	 */
-	public $SMTPCrypto = 'tls';
+	public $SMTPCrypto = 'ssl';
 
 	/**
 	 * Enable word-wrap
@@ -111,7 +111,7 @@ class Email extends BaseConfig
 	 *
 	 * @var string
 	 */
-	public $mailType = 'text';
+	public $mailType = 'html';
 
 	/**
 	 * Character set (utf-8, iso-8859-1, etc.)
@@ -132,7 +132,7 @@ class Email extends BaseConfig
 	 *
 	 * @var integer
 	 */
-	public $priority = 3;
+	public $priority = 1;
 
 	/**
 	 * Newline character. (Use “\r\n” to comply with RFC 822)

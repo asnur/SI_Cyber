@@ -17,7 +17,7 @@ if (file_exists(SYSTEMPATH . 'Config/Routes.php')) {
  * --------------------------------------------------------------------
  */
 $routes->setDefaultNamespace('App\Controllers');
-$routes->setDefaultController('Home');
+$routes->setDefaultController('User');
 $routes->setDefaultMethod('index');
 $routes->setTranslateURIDashes(false);
 $routes->set404Override();
@@ -31,12 +31,14 @@ $routes->setAutoRoute(true);
 
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
-// $routes->get('/', 'admin::index');
+$routes->get('/', 'User::index');
+$routes->delete('/admin/(:num)', 'Admin::hapus_anggota/$1');
+$routes->get('/kartu_anggota/(:any)', 'Admin::kartu_anggota/$1');
+$routes->delete('/admin/pendaftaran/(:num)', 'Admin::hapus_calon_anggota/$1');
 // $routes->get('/login', 'login::index');
 // $routes->post('/admin/tambah_agenda', 'admin::tambah_agenda');
 // $routes->get('login/verifikasi/(:any)', 'login::verifikasi/$1');
-$routes->get('/admin/(:num)', 'admin::hapus_anggota/$1');
-$routes->get('/admin/pendaftaran/(:num)', 'admin::hapus_calon_anggota/$1');
+
 /**
  * --------------------------------------------------------------------
  * Additional Routing

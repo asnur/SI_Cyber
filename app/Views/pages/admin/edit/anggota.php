@@ -25,6 +25,7 @@
                         </div>
                         <div class="card-body">
                             <form class="form" action="/admin/save_edit_anggota/<?= $detail['id'] ?>" method="POST" enctype="multipart/form-data">
+                                <?= csrf_field(); ?>
                                 <label>Nama Lengkap</label>
                                 <input type="text" value="<?= $detail['nama']; ?>" class="form-control <?= ($validation->hasError('nama')) ? 'is-invalid' : ''; ?>" name="nama">
                                 <div class="invalid-feedback">
@@ -87,11 +88,11 @@
                                         <?php
                                         if (empty($detail['foto'])) {
                                         ?>
-                                            <img id="blah" src="<?= base_url('dist/img/user-icon.png'); ?>" alt="your image" class="img-user mb-2 img-circle" />
+                                            <img id="blah" src="/dist/img/user-icon.png" alt="your image" class="img-user mb-2 img-circle" />
                                         <?php
                                         } else {
                                         ?>
-                                            <img id="blah" src="<?= base_url('dist/img/' . $detail['foto']); ?>" class="img-user img-circle" />;
+                                            <img id="blah" src="<? '/dist/img/' . $detail['foto']; ?>" class="img-user img-circle" />;
                                         <?php
                                         }
                                         ?>

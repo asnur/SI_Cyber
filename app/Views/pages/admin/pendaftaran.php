@@ -66,7 +66,7 @@
                                             <td align="center"><?= $c['angkatan']; ?></td>
                                             <td align="center"><?= $c['no_tlp']; ?></td>
                                             <td align="center"><a href="<?= base_url('/admin/edit_calon_anggota/' . $c['username'] . '') ?>" class="btn btn-success"><i class="fa fa-edit"></i></a>
-                                                <form action="<?= base_url('/admin/pendaftaran/' . $c['id'] . '')  ?>" class="d-inline">
+                                                <form action="<?= base_url('/admin/pendaftaran/' . $c['id'] . '')  ?>" class="d-inline" method="POST">
                                                     <input type="hidden" name="_method" value="DELETE">
                                                     <button type="submit" class="btn btn-danger"><i class="fa fa-trash-o"></i></button>
                                                 </form>

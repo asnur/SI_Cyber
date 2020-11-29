@@ -26,6 +26,7 @@
                         </div>
                         <div class="card-body">
                             <form action="/admin/save_tambah_artikel" method="POST" enctype="multipart/form-data">
+                                <?= csrf_field(); ?>
                                 <label>Judul Artikel</label>
                                 <input type="text" name="judul" class="form-control <?= ($validation->hasError('judul')) ? 'is-invalid' : ''; ?>" placeholder="Masukan Judul Artikel">
                                 <div class="invalid-feedback">

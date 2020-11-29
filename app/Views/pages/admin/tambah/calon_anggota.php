@@ -94,7 +94,7 @@ function generateRandomString($length = 5)
                             <div class="card-body">
                                 <div class="form-group">
                                     <center>
-                                        <img id="blah" src="<?= base_url('dist/img/find_user.png'); ?>" alt="your image" class="img-user mb-2 img-circle" />
+                                        <img id="blah" src="/'dist/img/find_user.png" alt="your image" class="img-user mb-2 img-circle" />
                                     </center>
                                     <label for="exampleInputFile">Foto</label>
                                     <div class="custom-file">
