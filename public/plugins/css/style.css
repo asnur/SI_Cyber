@@ -1,0 +1,18 @@
+.img-user {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    object-position: center;
+}
+
+.brand-link {
+    font-weight: bold;
+}
+
+.table>tbody>tr>* {
+    vertical-align: middle;
+}
+
+.table>thead>tr>* {
+    text-align: center;
+}
