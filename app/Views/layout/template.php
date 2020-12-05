@@ -176,7 +176,7 @@
                     if (title) {
                         var start = $.fullCalendar.formatDate(start, "Y-MM-DD HH:mm:ss");
                         var end = $.fullCalendar.formatDate(end, "Y-MM-DD HH:mm:ss");
-                        let baseUrl = "http://localhost:8080/admin/tambah_agenda";
+                        let baseUrl = 'http://localhost:8080/admin/tambah_agenda';
                         $.ajax({
                             url: baseUrl,
                             type: 'POST',
@@ -185,7 +185,8 @@
                                 start: start,
                                 end: end
                             },
-                            success: function() {
+                            success: function(data) {
+                                console.log(data);
                                 calendar.fullCalendar('refetchEvents');
                                 alert('Agenda Ditambahkan');
                             }

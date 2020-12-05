@@ -1,4 +1,6 @@
-<?php namespace Config;
+<?php
+
+namespace Config;
 
 use CodeIgniter\Config\BaseConfig;
 
@@ -16,7 +18,13 @@ class Filters extends BaseConfig
 	public $globals = [
 		'before' => [
 			//'honeypot'
-			'csrf',
+			'csrf' => [
+				'except' => [
+					'/admin/tambah_agenda',
+					'/admin/ubah_agenda',
+					'/admin/hapus_agenda'
+				]
+			],
 		],
 		'after'  => [
 			'toolbar',
