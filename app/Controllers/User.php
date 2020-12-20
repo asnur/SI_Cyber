@@ -153,16 +153,16 @@ class User extends BaseController
 
         if ($mail->send()) {
             $this->anggota->save([
-                'nama' => $this->request->getVar('nama'),
-                'username' => $this->request->getVar('username'),
-                'email' => $this->request->getVar('email'),
-                'password' => md5($this->request->getVar('password')),
-                'alamat' => $this->request->getVar('alamat'),
-                'no_tlp' => $this->request->getVar('no_tlp'),
-                'jenis_kelamin' => $this->request->getVar('jenis_kelamin'),
+                'nama' => htmlspecialchars($this->request->getVar('nama')),
+                'username' => htmlspecialchars($this->request->getVar('username')),
+                'email' => htmlspecialchars($this->request->getVar('email')),
+                'password' => md5(htmlspecialchars($this->request->getVar('password'))),
+                'alamat' => htmlspecialchars($this->request->getVar('alamat')),
+                'no_tlp' => htmlspecialchars($this->request->getVar('no_tlp')),
+                'jenis_kelamin' => htmlspecialchars($this->request->getVar('jenis_kelamin')),
                 'angkatan' => 'Cyber 14',
                 'jabatan' => NULL,
-                'status' => $this->request->getVar('status'),
+                'status' => htmlspecialchars($this->request->getVar('status')),
                 'foto' => $namaFoto,
                 'code' => $code
             ]);
@@ -193,7 +193,7 @@ class User extends BaseController
     {
         $data_anggota = $this->anggota->where(['id' => $id])->first();
         $usernameLama = $data_anggota['username'];
-        $usernameBaru = $this->request->getVar('username');
+        $usernameBaru = htmlspecialchars($this->request->getVar('username'));
         if ($usernameBaru == $usernameLama) {
             $rules = 'required';
         } else {
@@ -254,12 +254,12 @@ class User extends BaseController
 
         $this->anggota->save([
             'id' => $id,
-            'nama' => $this->request->getVar('nama'),
-            'username' => $this->request->getVar('username'),
-            'alamat' => $this->request->getVar('alamat'),
-            'no_tlp' => $this->request->getVar('no_tlp'),
-            'jenis_kelamin' => $this->request->getVar('jenis_kelamin'),
-            'angkatan' => $this->request->getVar('angkatan'),
+            'nama' => htmlspecialchars($this->request->getVar('nama')),
+            'username' => htmlspecialchars($this->request->getVar('username')),
+            'alamat' => htmlspecialchars($this->request->getVar('alamat')),
+            'no_tlp' => htmlspecialchars($this->request->getVar('no_tlp')),
+            'jenis_kelamin' => htmlspecialchars($this->request->getVar('jenis_kelamin')),
+            'angkatan' => htmlspecialchars($this->request->getVar('angkatan')),
             'foto' => $namaFoto
         ]);
 
@@ -287,7 +287,7 @@ class User extends BaseController
             $this->komentar->save([
                 'id_artikel' => $id,
                 'id_user' => $_SESSION['user'][0]['id'],
-                'isi_komentar' => $this->request->getVar('komentar'),
+                'isi_komentar' => htmlspecialchars($this->request->getVar('komentar')),
                 'tanggal' => date('Y-m-d')
             ]);
 

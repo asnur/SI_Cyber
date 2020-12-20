@@ -138,15 +138,15 @@ class Admin extends BaseController
 				$fileFoto->move('/dist/img/');
 			}
 			$this->anggota_cyber->save([
-				'nama' => $this->request->getVar('nama'),
-				'username' => $this->request->getVar('username'),
-				'password' => md5($this->request->getVar('password')),
-				'alamat' => $this->request->getVar('alamat'),
-				'no_tlp' => $this->request->getVar('no_tlp'),
-				'jenis_kelamin' => $this->request->getVar('jenis_kelamin'),
-				'angkatan' => $this->request->getVar('angkatan'),
-				'jabatan' => $this->request->getVar('jabatan'),
-				'status' => $this->request->getVar('status'),
+				'nama' => htmlspecialchars($this->request->getVar('nama')),
+				'username' => htmlspecialchars($this->request->getVar('username')),
+				'password' => md5(htmlspecialchars($this->request->getVar('password'))),
+				'alamat' => htmlspecialchars($this->request->getVar('alamat')),
+				'no_tlp' => htmlspecialchars($this->request->getVar('no_tlp')),
+				'jenis_kelamin' => htmlspecialchars($this->request->getVar('jenis_kelamin')),
+				'angkatan' => htmlspecialchars($this->request->getVar('angkatan')),
+				'jabatan' => htmlspecialchars($this->request->getVar('jabatan')),
+				'status' => htmlspecialchars($this->request->getVar('status')),
 				'foto' => $namaFoto
 			]);
 
@@ -206,14 +206,14 @@ class Admin extends BaseController
 			}
 			$this->anggota_cyber->save([
 				'id' => $id,
-				'nama' => $this->request->getVar('nama'),
-				'username' => $this->request->getVar('username'),
-				'alamat' => $this->request->getVar('alamat'),
-				'no_tlp' => $this->request->getVar('no_hp'),
-				'jenis_kelamin' => $this->request->getVar('jenis_kelamin'),
-				'angkatan' => $this->request->getVar('angkatan'),
-				'jabatan' => $this->request->getVar('jabatan'),
-				'status' => $this->request->getVar('status'),
+				'nama' => htmlspecialchars($this->request->getVar('nama')),
+				'username' => htmlspecialchars($this->request->getVar('username')),
+				'alamat' => htmlspecialchars($this->request->getVar('alamat')),
+				'no_tlp' => htmlspecialchars($this->request->getVar('no_hp')),
+				'jenis_kelamin' => htmlspecialchars($this->request->getVar('jenis_kelamin')),
+				'angkatan' => htmlspecialchars($this->request->getVar('angkatan')),
+				'jabatan' => htmlspecialchars($this->request->getVar('jabatan')),
+				'status' => htmlspecialchars($this->request->getVar('status')),
 				'foto' => $namaFoto
 			]);
 			session()->setFlashdata('pesan', 'Data Berhasil Di Ubah');
@@ -326,14 +326,14 @@ class Admin extends BaseController
 				$fileFoto->move('/dist/img/');
 			}
 			$this->anggota_cyber->save([
-				'nama' => $this->request->getVar('nama'),
-				'username' => $this->request->getVar('username'),
-				'alamat' => $this->request->getVar('alamat'),
-				'no_tlp' => $this->request->getVar('no_tlp'),
-				'jenis_kelamin' => $this->request->getVar('jenis_kelamin'),
-				'angkatan' => $this->request->getVar('angkatan'),
+				'nama' => htmlspecialchars($this->request->getVar('nama')),
+				'username' => htmlspecialchars($this->request->getVar('username')),
+				'alamat' => htmlspecialchars($this->request->getVar('alamat')),
+				'no_tlp' => htmlspecialchars($this->request->getVar('no_tlp')),
+				'jenis_kelamin' => htmlspecialchars($this->request->getVar('jenis_kelamin')),
+				'angkatan' => htmlspecialchars($this->request->getVar('angkatan')),
 				'jabatan' => NULL,
-				'status' => $this->request->getVar('status'),
+				'status' => htmlspecialchars($this->request->getVar('status')),
 				'foto' => $namaFoto
 			]);
 			session()->setFlashdata('pesan', 'Data Berhasil Di Tambahkan');
@@ -417,14 +417,14 @@ class Admin extends BaseController
 			}
 			$this->anggota_cyber->save([
 				'id' => $id,
-				'nama' => $this->request->getVar('nama'),
-				'username' => $this->request->getVar('username'),
-				'alamat' => $this->request->getVar('alamat'),
-				'no_tlp' => $this->request->getVar('no_tlp'),
-				'jenis_kelamin' => $this->request->getVar('jenis_kelamin'),
-				'angkatan' => $this->request->getVar('angkatan'),
+				'nama' => htmlspecialchars($this->request->getVar('nama')),
+				'username' => htmlspecialchars($this->request->getVar('username')),
+				'alamat' => htmlspecialchars($this->request->getVar('alamat')),
+				'no_tlp' => htmlspecialchars($this->request->getVar('no_tlp')),
+				'jenis_kelamin' => htmlspecialchars($this->request->getVar('jenis_kelamin')),
+				'angkatan' => htmlspecialchars($this->request->getVar('angkatan')),
 				'jabatan' => NULL,
-				'status' => $this->request->getVar('status'),
+				'status' => htmlspecialchars($this->request->getVar('status')),
 				'foto' => $namaFoto
 			]);
 			session()->setFlashdata('pesan', 'Data Berhasil Di Ubah');
@@ -749,9 +749,9 @@ class Admin extends BaseController
 				$tanggal = $this->request->getVar('tanggal');
 			}
 			$this->artikel->save([
-				'judul' => $this->request->getVar('judul'),
+				'judul' => htmlspecialchars($this->request->getVar('judul')),
 				'foto' => $namaFoto,
-				'isi' => $this->request->getVar('isi'),
+				'isi' => htmlspecialchars($this->request->getVar('isi')),
 				'tanggal' => $tanggal
 			]);
 
@@ -825,9 +825,9 @@ class Admin extends BaseController
 
 			$this->artikel->save([
 				'id' => $id,
-				'judul' => $this->request->getVar('judul'),
+				'judul' => htmlspecialchars($this->request->getVar('judul')),
 				'foto' => $namaFoto,
-				'isi' => $this->request->getVar('isi'),
+				'isi' => htmlspecialchars($this->request->getVar('isi')),
 				'tanggal' => $tanggal
 			]);
 
@@ -872,7 +872,7 @@ class Admin extends BaseController
 			return view('pages/login/index');
 		} else {
 			$this->agenda->save([
-				'title' => $this->request->getVar('title'),
+				'title' => htmlspecialchars($this->request->getVar('title')),
 				'start_event' => $this->request->getVar('start'),
 				'end_event' => $this->request->getVar('end')
 			]);
@@ -886,7 +886,7 @@ class Admin extends BaseController
 		} else {
 			$this->agenda->save([
 				'id' => $this->request->getVar('id'),
-				'title' => $this->request->getVar('title'),
+				'title' => htmlspecialchars($this->request->getVar('title')),
 				'start_event' => $this->request->getVar('start'),
 				'end_event' => $this->request->getVar('end')
 			]);
