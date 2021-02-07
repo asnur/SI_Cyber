@@ -22,7 +22,11 @@ class Filters extends BaseConfig
 				'except' => [
 					'/admin/tambah_agenda',
 					'/admin/ubah_agenda',
-					'/admin/hapus_agenda'
+					'/admin/hapus_agenda',
+					'/user/token',
+					'/user/map',
+					'/user/unset',
+					'/user/upload_absen'
 				]
 			],
 		],

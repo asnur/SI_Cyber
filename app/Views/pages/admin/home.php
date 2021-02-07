@@ -15,7 +15,7 @@ if (session()->getFlashdata('pesan')) :
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0 text-dark">Dashboard</h1>
+                    <h3 class="m-0 text-dark">Dashboard</h3>
                 </div><!-- /.col -->
             </div><!-- /.row -->
         </div><!-- /.container-fluid -->
@@ -27,66 +27,83 @@ if (session()->getFlashdata('pesan')) :
         <div class="container-fluid">
             <!-- Small boxes (Stat box) -->
             <div class="row">
-                <div class="col-lg-3 col-6">
-                    <!-- small box -->
-                    <div class="small-box bg-info">
-                        <div class="inner">
-                            <h3><?= $jumlah_anggota; ?></h3>
-
-                            <p>Anggota</p>
+                <!-- small box -->
+                <div class="col-lg-6 col-12 small-box text-white" style="background-color: #6BAFCF;">
+                    <div class="inner">
+                        <div class="text mt-5 mb-5">
+                            <h1 style="font-size: 60px;">Rp. <?= number_format($jumlah_donasi[0]['jumlah']); ?></h1>
+                            <h2>Jumlah Donasi</h2>
                         </div>
-                        <div class="icon">
-                            <i class="ion ion-android-person"></i>
-                        </div>
-                        <a href="/admin/anggota" class="small-box-footer">Selengkapnya <i class="fa fa-arrow-circle-right"></i></a>
+                    </div>
+                    <div class="icon">
+                        <i class="ion ion-cash" style="font-size: 200px;"></i>
                     </div>
                 </div>
-                <!-- ./col -->
-                <div class="col-lg-3 col-6">
-                    <!-- small box -->
-                    <div class="small-box bg-success">
-                        <div class="inner">
-                            <h3><?= $jumlah_prestasi; ?></h3>
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <!-- small box -->
+                            <div class="small-box bg-info">
+                                <div class="inner">
+                                    <h3><?= $jumlah_anggota; ?></h3>
 
-                            <p>Prestasi</p>
+                                    <p>Anggota</p>
+                                </div>
+                                <div class="icon">
+                                    <i class="ion ion-android-person"></i>
+                                </div>
+                                <a href="/admin/anggota" class="small-box-footer">Selengkapnya <i class="fa fa-arrow-circle-right"></i></a>
+                            </div>
                         </div>
-                        <div class="icon">
-                            <i class="ion ion-trophy"></i>
+                        <!-- ./col -->
+                        <div class="col-md-6">
+                            <!-- small box -->
+                            <div class="small-box bg-success">
+                                <div class="inner">
+                                    <h3><?= $jumlah_prestasi; ?></h3>
+
+                                    <p>Prestasi</p>
+                                </div>
+                                <div class="icon">
+                                    <i class="ion ion-trophy"></i>
+                                </div>
+                                <a href="/admin/prestasi" class="small-box-footer">Selengkapnya <i class="fa fa-arrow-circle-right"></i></a>
+                            </div>
                         </div>
-                        <a href="/admin/prestasi" class="small-box-footer">Selengkapnya <i class="fa fa-arrow-circle-right"></i></a>
+                        <!-- ./col -->
+                        <div class="col-md-6">
+                            <!-- small box -->
+                            <div class="small-box bg-warning">
+                                <div class="inner">
+                                    <h3><?= $jumlah_pendaftar; ?></h3>
+
+                                    <p>Peserta Seleksi</p>
+                                </div>
+                                <div class="icon">
+                                    <i class="ion ion-person-add"></i>
+                                </div>
+                                <a href="/admin/pendaftaran" class="small-box-footer">Selengkapnya <i class="fa fa-arrow-circle-right"></i></a>
+                            </div>
+                        </div>
+                        <!-- ./col -->
+                        <div class="col-md-6">
+                            <!-- small box -->
+                            <div class="small-box bg-danger">
+                                <div class="inner">
+                                    <h3><?= $jumlah_agenda; ?></h3>
+
+                                    <p>Agenda</p>
+                                </div>
+                                <div class="icon">
+                                    <i class="ion ion-calendar"></i>
+                                </div>
+                                <a href="/admin/agenda" class="small-box-footer">Selengkapnya <i class="fa fa-arrow-circle-right"></i></a>
+                            </div>
+                        </div>
+                        <!-- ./col -->
                     </div>
                 </div>
-                <!-- ./col -->
-                <div class="col-lg-3 col-6">
-                    <!-- small box -->
-                    <div class="small-box bg-warning">
-                        <div class="inner">
-                            <h3><?= $jumlah_pendaftar; ?></h3>
 
-                            <p>Peserta Seleksi</p>
-                        </div>
-                        <div class="icon">
-                            <i class="ion ion-person-add"></i>
-                        </div>
-                        <a href="/admin/pendaftaran" class="small-box-footer">Selengkapnya <i class="fa fa-arrow-circle-right"></i></a>
-                    </div>
-                </div>
-                <!-- ./col -->
-                <div class="col-lg-3 col-6">
-                    <!-- small box -->
-                    <div class="small-box bg-danger">
-                        <div class="inner">
-                            <h3><?= $jumlah_agenda; ?></h3>
-
-                            <p>Agenda</p>
-                        </div>
-                        <div class="icon">
-                            <i class="ion ion-calendar"></i>
-                        </div>
-                        <a href="/admin/agenda" class="small-box-footer">Selengkapnya <i class="fa fa-arrow-circle-right"></i></a>
-                    </div>
-                </div>
-                <!-- ./col -->
             </div>
             <!-- /.row -->
             <!-- Main row -->

@@ -8,7 +8,7 @@
             <div class="card">
                 <div class="card-body">
                     <table id="tableAnggota" class="table table-bordered table-striped">
-                        <thead>
+                        <thead class="text-white" style="background-color: #6BAFCF;">
                             <tr>
                                 <th>Foto</th>
                                 <th>Nama</th>
@@ -39,6 +39,16 @@
                                     <td align="center"><?= $a['status']; ?></td>
                                 </tr>
                             <?php endforeach; ?>
+                        <tfoot class="text-white" style="background-color: #6BAFCF;">
+                            <tr>
+                                <th>Foto</th>
+                                <th>Nama</th>
+                                <th>Jenis Kelamin</th>
+                                <th>Angkatan</th>
+                                <th>Jabatan</th>
+                                <th>Status</th>
+                            </tr>
+                        </tfoot>
                     </table>
                 </div>
                 <!-- /.card-body -->

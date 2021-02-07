@@ -48,6 +48,9 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/user/pendaftaran">Pendaftaran</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/user/donasi">Donasi</a>
+                    </li>
                     <?php if (!isset($_SESSION['user'])) { ?>
                         <li class="nav-item">
                             <a class="nav-link text-light btn-login" href="/login"><i class="fa fa-sign-in"></i> Masuk</a>
@@ -57,6 +60,7 @@
                             <a class="nav-link text-light btn-login dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user"></i> &nbsp;<?= $_SESSION['user'][0]['nama']; ?></a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown" style="width: 100%;">
                                 <a class="dropdown-item" href="/user/profil"><i class="fa fa-gear"></i> Ubah Profil</a>
+                                <a class="dropdown-item" href="/user/absen"><i class="fa fa-camera"></i> Absen</a>
                                 <a class="dropdown-item" href="/login/logout"><i class="fa fa-sign-out"></i> Keluar</a>
                             </div>
                         </li>
@@ -90,7 +94,7 @@
             </div>
         </div>
     </div>
-
+    <!-- <div id="my_camera" style="display:none;"></div> -->
 </body>
 <script src="/plugins/jquery/jquery.min.js"></script>
 <script src="/plugins/jquery-ui/jquery-ui.min.js"></script>
@@ -103,8 +107,223 @@
 <script src="/plugins/slicker/slick.js"></script>
 <script src="/plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+<script src="/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+<script src="/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+<script src="/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
 <script src="/plugins/bootstrap-show-password-master/src/bootstrap-show-password.js"></script>
 <script src="/plugins/sweetalert2/dist/sweetalert2.all.min.js"></script>
+<script src="/plugins/jquery-mask/jquery-mask.js"></script>
+<script type="text/javascript" src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="SB-Mid-client-NsNt6ipz4eLWEUD_"></script>
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="http://d3js.org/topojson.v1.min.js"></script>
+<script>
+    var width = 990,
+        height = 420,
+        centered;
+
+    var projection = d3.geo.equirectangular()
+        .scale(1400)
+        .rotate([-115, 2]);
+    // .translate([width / 2, height / 2])
+
+    var path = d3.geo.path()
+        .projection(projection);
+
+    var svg = d3.select("#map")
+    // .attr("width", width)
+    // .attr("height", height);
+
+    svg.append("rect")
+        .attr("class", "background")
+        // .attr("width", width)
+        // .attr("height", height)
+        .on("click", clicked);
+
+    var g = svg.append("g");
+
+    d3.json("/indonesia.json", function(error, us) {
+        if (error) throw error;
+
+        g.append("g")
+            .attr("id", "subunits")
+            .selectAll("path")
+            .data(topojson.feature(us, us.objects.states_provinces).features)
+            .enter().append("path")
+            .attr("d", path)
+            .on("click", clicked);
+
+        g.append("path")
+            .datum(topojson.mesh(us, us.objects.states_provinces, function(a, b) {
+                return a !== b;
+            }))
+            .attr("id", "state-borders")
+            .attr("d", path);
+    });
+
+    function regionInfo(region) {
+        return region.properties.region_cod;
+    }
+
+    //*/
+
+
+
+    function clicked(d) {
+        var x, y, k;
+
+        if (d) {
+            console.log(d.properties);
+            let id = regionInfo(d);
+
+            $.ajax({
+                url: `/user/api_corona_prov`,
+                headers: {
+                    'Access-Control-Allow-Origin': '*'
+                },
+                type: 'GET',
+                dataType: 'JSON',
+                success: function(result) {
+                    console.log(result);
+                    let data = result;
+                    $('#info').html('');
+                    var data_covid = $.grep(data, (element, index) => {
+                        return element.attributes.Kode_Provi == id;
+                    });
+                    console.log(data_covid);
+                    $('#info').append(`
+                    <div class="col-md-12 text-center">${data_covid[0].attributes.Provinsi}</div>
+                        <div class="col-md-4">
+                    <div class="card bg-success">
+                        <h2 class="text-white mt-2">${data_covid[0].attributes.Kasus_Semb}</h2>
+                        <h2 class="text-white">Sembuh</h2>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card bg-warning">
+                        <h2 class="text-white mt-2">${data_covid[0].attributes.Kasus_Posi}</h2>
+                        <h2 class="text-white">Positif</h2>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card bg-danger">
+                        <h2 class="text-white mt-2">${data_covid[0].attributes.Kasus_Meni}</h2>
+                        <h2 class="text-white">Meninggal</h2>
+                    </div>
+                </div>
+        `)
+
+
+                }
+            })
+
+        } else {
+            $.ajax({
+                url: `/user/api_corona_indo`,
+                type: 'get',
+                dataType: 'json',
+                success: function(corona) {
+                    $('#info').append(`
+            <div class="col-md-4">
+                    <div class="card bg-success">
+                        <h2 class="text-white mt-2">${corona.sembuh}</h2>
+                        <h2 class="text-white">Sembuh</h2>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card bg-warning">
+                        <h2 class="text-white mt-2">${corona.positif}</h2>
+                        <h2 class="text-white">Positif</h2>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card bg-danger">
+                        <h2 class="text-white mt-2">${corona.meninggal}</h2>
+                        <h2 class="text-white">Meninggal</h2>
+                    </div>
+                </div>`)
+                }
+            })
+
+        }
+
+        if (d && centered !== d) {
+            var centroid = path.centroid(d);
+            x = centroid[0];
+            y = centroid[1];
+            k = 4;
+            centered = d;
+        } else {
+            x = width / 2;
+            y = height / 2;
+            k = 1;
+            centered = null;
+        }
+
+        g.selectAll("path")
+            .classed("active", centered && function(d) {
+                return d === centered;
+            });
+
+        g.transition()
+            .duration(750)
+            .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")scale(" + k + ")translate(" + -x + "," + -y +
+                ")")
+            .style("stroke-width", 1.5 / k + "px");
+    }
+</script>
+<script type="text/javascript">
+    $('#pay-button').click(function(event) {
+        event.preventDefault();
+        $(this).attr("disabled", "disabled");
+        var uang = $('.uang').val();
+        var catatan = $('.catatan').val();
+        $.ajax({
+            type: 'POST',
+            url: '<?= site_url() ?>/user/token',
+            data: {
+                uang: uang,
+                catatan: catatan
+            },
+            cache: false,
+
+            success: function(data) {
+                //location = data;
+
+                console.log('token = ' + data);
+
+                var resultType = document.getElementById('result-type');
+                var resultData = document.getElementById('result-data');
+
+                function changeResult(type, data) {
+                    $("#result-type").val(type);
+                    $("#result-data").val(JSON.stringify(data));
+                    // resultType.innerHTML = type;
+                    // resultData.innerHTML = JSON.stringify(data);
+                }
+
+                snap.pay(data, {
+
+                    onSuccess: function(result) {
+                        changeResult('success', result);
+                        console.log(result.status_message);
+                        console.log(result);
+                        $("#payment-form").submit();
+                    },
+                    onPending: function(result) {
+                        changeResult('pending', result);
+                        console.log(result.status_message);
+                        $("#payment-form").submit();
+                    },
+                    onError: function(result) {
+                        changeResult('error', result);
+                        console.log(result.status_message);
+                        $("#payment-form").submit();
+                    }
+                });
+            }
+        });
+    });
+</script>
 <script>
     $(".preloader").fadeOut();
 </script>
@@ -140,6 +359,13 @@
             'error'
         );
     }
+    if (flashdata == 'Anda Sudah Absen') {
+        Swal.fire(
+            'Gagal!',
+            flashdata,
+            'error'
+        );
+    }
     if (flashdata == 'Anda Berhasil Login') {
         Swal.fire(
             'Berhasil!',
@@ -155,6 +381,20 @@
         );
     }
     if (flashdata == 'Komentar Berhasil diTambahkan') {
+        Swal.fire(
+            'Berhasil!',
+            flashdata,
+            'success'
+        );
+    }
+    if (flashdata == 'Absensi Berhasil') {
+        Swal.fire(
+            'Berhasil!',
+            flashdata,
+            'success'
+        );
+    }
+    if (flashdata == 'Donasi Berhasil diKirim Silahkan Selesaikan Pembayaran') {
         Swal.fire(
             'Berhasil!',
             flashdata,
@@ -229,7 +469,6 @@
             events: '/admin/load_agenda',
             selectable: true,
             selectHelper: true,
-            editable: true,
         });
     });
 </script>
@@ -250,9 +489,9 @@
     });
 </script>
 <script>
-    $("#tableAnggota").DataTable({
-        "responsive": true,
-        "autoWidth": false,
+    $('#tableAnggota').DataTable({
+        'responsive': true,
+        'autoWidth': false
     });
 </script>
 <script>

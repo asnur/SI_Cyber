@@ -11,6 +11,10 @@ use App\Models\Artikel;
 
 use App\Models\Agenda;
 
+use App\Models\Donasi;
+
+use App\Models\Absen;
+
 use Config\Aes;
 
 use PHPMailer\PHPMailer\PHPMailer;
@@ -27,6 +31,8 @@ class Admin extends BaseController
 	protected $prestasi_cyber;
 	protected $artikel;
 	protected $agenda;
+	protected $donasi;
+	protected $absen;
 	// protected $aes;
 
 	public function __construct()
@@ -35,6 +41,8 @@ class Admin extends BaseController
 		$this->prestasi_cyber = new PrestasiCyber();
 		$this->artikel = new Artikel();
 		$this->agenda = new Agenda();
+		$this->donasi = new Donasi();
+		$this->absen = new Absen();
 		// $this->aes = new Aes();
 	}
 
@@ -50,7 +58,8 @@ class Admin extends BaseController
 				'jumlah_anggota' => $this->anggota_cyber->countAllResults(),
 				'jumlah_prestasi' => $this->prestasi_cyber->countAllResults(),
 				'jumlah_pendaftar' => $this->anggota_cyber->where(['status' => 'Calon'])->countAllResults(),
-				'jumlah_agenda' => $this->agenda->countAllResults()
+				'jumlah_agenda' => $this->agenda->countAllResults(),
+				'jumlah_donasi' => $this->donasi->jumlah()
 			];
 			return view('pages/admin/home', $data);
 		}
@@ -135,7 +144,7 @@ class Admin extends BaseController
 				$namaFoto = '';
 			} else {
 				$namaFoto = $fileFoto->getName();
-				$fileFoto->move('/dist/img/');
+				$fileFoto->move('dist/img/');
 			}
 			$this->anggota_cyber->save([
 				'nama' => htmlspecialchars($this->request->getVar('nama')),
@@ -323,7 +332,7 @@ class Admin extends BaseController
 				$namaFoto = '';
 			} else {
 				$namaFoto = $fileFoto->getName();
-				$fileFoto->move('/dist/img/');
+				$fileFoto->move('dist/img/');
 			}
 			$this->anggota_cyber->save([
 				'nama' => htmlspecialchars($this->request->getVar('nama')),
@@ -462,6 +471,162 @@ class Admin extends BaseController
 				'kartu' => $data_anggota
 			];
 			return view('/pages/admin/kartu/kartu_calon_anggota', $data);
+		}
+	}
+
+	public function donasi()
+	{
+		// dd($this->donasi->jumlah());
+		if (!isset($_SESSION['admin'])) {
+			return view('pages/login/index');
+		} else {
+			$data = [
+				'donasi' => $this->donasi->findAll(),
+				'jumlah' => $this->donasi->jumlah()
+			];
+			return view('/pages/admin/donasi', $data);
+		}
+	}
+
+	public function tambah_donasi()
+	{
+		if (!isset($_SESSION['admin'])) {
+			return view('pages/login/index');
+		} else {
+			$data = [
+				'validation' => \Config\Services::validation(),
+				'anggota' => $this->anggota_cyber->findAll()
+			];
+			return view('/pages/admin/tambah/donasi', $data);
+		}
+	}
+
+	public function save_tambah_donasi()
+	{
+		if (!isset($_SESSION['admin'])) {
+			return view('pages/login/index');
+		} else {
+			if (!$this->validate([
+				'nama' => [
+					'rules' => 'required',
+					'errors' => [
+						'required' => '{field} tidak boleh kosong'
+					]
+				],
+				'angkatan' => [
+					'rules' => 'required',
+					'errors' => [
+						'required' => '{field} tidak boleh kosong'
+					]
+				],
+				'nominal' => [
+					'rules' => 'required',
+					'errors' => [
+						'required' => '{field} tidak boleh kosong'
+					]
+				],
+			])) {
+				return redirect()->to('/admin/tambah_donasi/')->withInput();
+			}
+			$namaAnggota = $this->request->getVar('nama');
+			$pilihAnggota = "";
+			foreach ($namaAnggota as $nama) {
+				$pilihAnggota .= $nama . ", ";
+			}
+			$pilihAnggota = substr($pilihAnggota, 0, -2);
+
+			$angkatan = $this->request->getVar('angkatan');
+			$pilih_angkatan = "";
+			foreach ($angkatan as $angkatan_cyber) {
+				$pilih_angkatan .= $angkatan_cyber . ", ";
+			}
+
+			$pilih_angkatan = substr($pilih_angkatan, 0, -2);
+			$this->donasi->save([
+				'nama' => $pilihAnggota,
+				'angkatan' => $pilih_angkatan,
+				'jenis_pembayaran' => 'Cash',
+				'status' => 'settlement',
+				'nominal' => $this->request->getVar('nominal')
+			]);
+
+			return redirect()->to('/admin/donasi');
+		}
+	}
+
+	public function edit_donasi($id = '')
+	{
+		if (!isset($_SESSION['admin'])) {
+			return view('pages/login/index');
+		} else {
+			$data = [
+				'validation' => \Config\Services::validation(),
+				'donasi' => $this->donasi->where(['id' => $id])->first(),
+				'anggota' => $this->anggota_cyber->findAll()
+			];
+			return view('/pages/admin/edit/donasi', $data);
+		}
+	}
+
+	public function save_edit_donasi($id = '')
+	{
+		if (!isset($_SESSION['admin'])) {
+			return view('pages/login/index');
+		} else {
+			if (!$this->validate([
+				'nama' => [
+					'rules' => 'required',
+					'errors' => [
+						'required' => '{field} tidak boleh kosong'
+					]
+				],
+				'angkatan' => [
+					'rules' => 'required',
+					'errors' => [
+						'required' => '{field} tidak boleh kosong'
+					]
+				],
+				'nominal' => [
+					'rules' => 'required',
+					'errors' => [
+						'required' => '{field} tidak boleh kosong'
+					]
+				],
+			])) {
+				return redirect()->to('/admin/edit_donasi/' . $id)->withInput();
+			}
+			$namaAnggota = $this->request->getVar('nama');
+			$pilihAnggota = "";
+			foreach ($namaAnggota as $nama) {
+				$pilihAnggota .= $nama . ", ";
+			}
+			$pilihAnggota = substr($pilihAnggota, 0, -2);
+
+			$angkatan = $this->request->getVar('angkatan');
+			$pilih_angkatan = "";
+			foreach ($angkatan as $angkatan_cyber) {
+				$pilih_angkatan .= $angkatan_cyber . ", ";
+			}
+
+			$pilih_angkatan = substr($pilih_angkatan, 0, -2);
+			$this->donasi->save([
+				'id' => $id,
+				'nama' => $pilihAnggota,
+				'angkatan' => $pilih_angkatan,
+				'nominal' => $this->request->getVar('nominal')
+			]);
+
+			return redirect()->to('/admin/donasi');
+		}
+	}
+
+	public function hapus_donasi($id = '')
+	{
+		if (!isset($_SESSION['admin'])) {
+			return view('pages/login/index');
+		} else {
+			$this->donasi->delete($id);
+			return redirect()->to('/admin/donasi');
 		}
 	}
 
@@ -899,6 +1064,31 @@ class Admin extends BaseController
 			return view('pages/login/index');
 		} else {
 			$this->agenda->delete($this->request->getVar('id'));
+		}
+	}
+
+	public function absen()
+	{
+		if (!isset($_SESSION['admin'])) {
+			return view('pages/login/index');
+		} else {
+			$data = [
+				'absen' => $this->absen->findAll()
+			];
+			return view('pages/admin/absen', $data);
+		}
+	}
+
+	public function hapus_absen($id_absen = '')
+	{
+		if (!isset($_SESSION['admin'])) {
+			return view('pages/login/index');
+		} else {
+			$data_absen = $this->absen->where(['id' => $id_absen])->first();
+			unlink('dist/img/absen/' . $data_absen['foto']);
+			$this->absen->delete($id_absen);
+			session()->setFlashdata('pesan', 'Data Absen Telah diHapus');
+			return redirect()->to('/admin/absen');
 		}
 	}
 

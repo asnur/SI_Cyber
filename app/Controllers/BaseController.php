@@ -2,6 +2,8 @@
 
 namespace App\Controllers;
 
+
+
 /**
  * Class BaseController
  *
@@ -16,6 +18,9 @@ namespace App\Controllers;
  */
 
 use CodeIgniter\Controller;
+// use App\Libraries\Midtrans;
+// use Midtrans;
+// use Midtrans\Snap;
 
 class BaseController extends Controller
 {
@@ -29,6 +34,8 @@ class BaseController extends Controller
 	 */
 	protected $helpers = [];
 
+	// protected $midtrans_config;
+
 	/**
 	 * Constructor.
 	 */
@@ -37,7 +44,10 @@ class BaseController extends Controller
 		// Do Not Edit This Line
 		parent::initController($request, $response, $logger);
 
+		// $this->midtrans_snap = new Snap();
 		session();
+		setcookie('map_id', 1, time() + 1);
+		date_default_timezone_set('Asia/Jakarta');
 		//--------------------------------------------------------------------
 		// Preload any models, libraries, etc, here.
 		//--------------------------------------------------------------------

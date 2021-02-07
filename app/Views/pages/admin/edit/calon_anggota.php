@@ -85,7 +85,7 @@
                                             <img id="blah" src="/dist/img/user-icon.png" alt="your image" class="img-user mb-2 img-circle" />
                                         <?php
                                         } else {
-                                            echo '<img src="data:image/jpeg;base64,' . base64_encode($detail['foto']) . '" class="img-user img-circle"/>';
+                                            echo '<img src="/dist/img/' . $detail['foto'] . '" class="img-user img-circle"/>';
                                         }
                                         ?>
                                     </center>

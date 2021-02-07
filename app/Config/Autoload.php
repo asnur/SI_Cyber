@@ -1,4 +1,6 @@
-<?php namespace Config;
+<?php
+
+namespace Config;
 
 require_once SYSTEMPATH . 'Config/AutoloadConfig.php';
 
@@ -13,7 +15,9 @@ class Autoload extends \CodeIgniter\Config\AutoloadConfig
 {
 	public $psr4 = [];
 
-	public $classmap = [];
+	public $classmap = [
+		'Midtrans' => APPPATH . '/Libraries/Midtrans.php'
+	];
 
 	//--------------------------------------------------------------------
 

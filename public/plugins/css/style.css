@@ -3,6 +3,33 @@
     src: url("/plugins/fonts/BalsamiqSans-Regular.ttf");
 }
 
+.background {
+    fill: none;
+    pointer-events: all;
+}
+
+#subunits {
+    fill: rgb(92, 185, 247);
+}
+
+#subunits .active {
+    fill: orange;
+}
+
+#state-borders {
+    fill: none;
+    stroke: #fff;
+    stroke-width: 0.5px;
+    stroke-linejoin: round;
+    stroke-linecap: round;
+    pointer-events: none;
+}
+
+#info {
+    text-align: center;
+    font-size: 48px;
+}
+
 * {
     font-family: "Balsami";
     scroll-behavior: smooth;
@@ -321,6 +348,69 @@ header {
     border-radius: 50%;
 }
 
+.jam_analog {
+    background: #e7f2f7;
+    position: relative;
+    width: 240px;
+    height: 240px;
+    border: 16px solid #52b6f0;
+    border-radius: 50%;
+    padding: 20px;
+    margin: 20px auto;
+}
+
+.xxx {
+    height: 100%;
+    width: 100%;
+    position: relative;
+}
+
+.jarum {
+    position: absolute;
+    width: 50%;
+    background: #232323;
+    top: 50%;
+    transform: rotate(90deg);
+    transform-origin: 100%;
+    transition: all 0.05s cubic-bezier(0.1, 2.7, 0.58, 1);
+}
+
+.lingkaran_tengah {
+    width: 24px;
+    height: 24px;
+    background: #232323;
+    border: 4px solid #52b6f0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-left: -14px;
+    margin-top: -14px;
+    border-radius: 50%;
+}
+
+.jarum_detik {
+    height: 2px;
+    border-radius: 1px;
+    background: #F0C952;
+}
+
+.jarum_menit {
+    height: 4px;
+    border-radius: 4px;
+}
+
+.jarum_jam {
+    height: 8px;
+    border-radius: 4px;
+    width: 35%;
+    left: 15%;
+}
+
+.kotak {
+    float: left;
+    font-size: 48px;
+}
+
 @media screen and (max-width: 770px) {
     nav {
         background: white;
@@ -347,5 +437,10 @@ header {
 
     .artikel-lain {
         display: none;
+    }
+
+    .kotak {
+        float: left;
+        font-size: 35px;
     }
 }

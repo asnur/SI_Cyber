@@ -37,7 +37,7 @@
                         <!-- /.card-header -->
                         <div class="card-body">
                             <table id="tableAnggota" class="table table-bordered table-striped">
-                                <thead>
+                                <thead class="text-white" style="background-color: #6BAFCF;">
                                     <tr>
                                         <th>Nama</th>
                                         <th>Angkatan</th>
@@ -60,12 +60,23 @@
                                             <td align="center"><?= $p['tempat']; ?></td>
                                             <td align="center"><a href="<?= base_url('/admin/edit_prestasi/' . $p['id'] . '') ?>" class="btn btn-success"><i class="fa fa-edit"></i></a>
                                                 <form action="<?= base_url('/admin/hapus_prestasi/' . $p['id'] . '')  ?>" class="d-inline">
+                                                    <?= csrf_field(); ?>
                                                     <input type="hidden" name="_method" value="DELETE">
                                                     <button type="submit" class="btn btn-danger"><i class="fa fa-trash-o"></i></button>
                                                 </form>
                                             </td>
                                         </tr>
                                     <?php endforeach; ?>
+                                <tfoot class="text-white" style="background-color: #6BAFCF;">
+                                    <tr>
+                                        <th>Nama</th>
+                                        <th>Angkatan</th>
+                                        <th>Jenis Prestasi</th>
+                                        <th>Tahun</th>
+                                        <th>Tempat</th>
+                                        <th>Aksi</th>
+                                    </tr>
+                                </tfoot>
                             </table>
                         </div>
                         <!-- /.card-body -->

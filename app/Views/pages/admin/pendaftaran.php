@@ -37,7 +37,7 @@
                         <!-- /.card-header -->
                         <div class="card-body">
                             <table id="tableAnggota" class="table table-bordered table-striped">
-                                <thead>
+                                <thead class="text-white" style="background-color: #6BAFCF;">
                                     <tr>
                                         <th>Foto</th>
                                         <th>Nama</th>
@@ -58,7 +58,7 @@
                                                 if (empty($c['foto'])) {
                                                     echo '<img src="/dist/img/user-icon.png" style="width: 80px; height: 100px; object-fit:cover; object-position:center;" class="image"/>';
                                                 } else {
-                                                    echo '<img src="/dist/img/' . $a['foto'] . '" style="width: 80px; height: 100px; object-fit:cover; object-position:center;" class="image"/>';
+                                                    echo '<img src="/dist/img/' . $c['foto'] . '" style="width: 80px; height: 100px; object-fit:cover; object-position:center;" class="image"/>';
                                                 } ?>
                                             </td>
                                             <td><?= $c['nama']; ?></td>
@@ -67,6 +67,7 @@
                                             <td align="center"><?= $c['no_tlp']; ?></td>
                                             <td align="center"><a href="<?= base_url('/admin/edit_calon_anggota/' . $c['username'] . '') ?>" class="btn btn-success"><i class="fa fa-edit"></i></a>
                                                 <form action="<?= base_url('/admin/pendaftaran/' . $c['id'] . '')  ?>" class="d-inline" method="POST">
+                                                    <?= csrf_field(); ?>
                                                     <input type="hidden" name="_method" value="DELETE">
                                                     <button type="submit" class="btn btn-danger"><i class="fa fa-trash-o"></i></button>
                                                 </form>
@@ -74,6 +75,16 @@
                                             </td>
                                         </tr>
                                     <?php endforeach; ?>
+                                <tfoot class="text-white" style="background-color: #6BAFCF;">
+                                    <tr>
+                                        <th>Foto</th>
+                                        <th>Nama</th>
+                                        <th>Jenis Kelamin</th>
+                                        <th>Angkatan</th>
+                                        <th>No Hp</th>
+                                        <th>Aksi</th>
+                                    </tr>
+                                </tfoot>
                             </table>
                         </div>
                         <!-- /.card-body -->
