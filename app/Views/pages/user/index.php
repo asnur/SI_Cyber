@@ -51,25 +51,57 @@
     </div>
 </header>
 
-<div class="container mb-5" id="tentang">
-    <h1 align="center" class="mb-5" data-aos="fade-up">Sejarah & Visi Misi</h1>
+<div class="container">
     <div class="row">
-        <div class="col-md-6 text-center mb-5" data-aos="fade-left"><img class="img-visi" src="<?= base_url('dist/img/history.png'); ?>"></div>
-        <div class="col-md-6 text-justify" data-aos="fade-right">
+        <div class="col-md-12">
+            <h1 align="center">Data Corona</h1>
+        </div>
+        <div class="col-md-12 text-center">
+            <!-- <div id="info"> INDONESIA </div> -->
+            <div class="row" id="info">
+                <div class=" col-md-4">
+                    <div class="card bg-success">
+                        <h2 class="text-white mt-2"><?= $corona[0]->sembuh; ?></h2>
+                        <h2 class="text-white">Sembuh</h2>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card bg-warning">
+                        <h2 class="text-white mt-2"><?= $corona[0]->positif; ?></h2>
+                        <h2 class="text-white">Positif</h2>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card bg-danger">
+                        <h2 class="text-white mt-2"><?= $corona[0]->meninggal; ?></h2>
+                        <h2 class="text-white">Meninggal</h2>
+                    </div>
+                </div>
+            </div>
+            <svg id='map' style="width:100%; height: 500px"></svg>
+        </div>
+    </div>
+</div>
+
+<div class="container mb-5" id="tentang">
+    <h1 align="center" class="mb-5">Sejarah & Visi Misi</h1>
+    <div class="row">
+        <div class="col-md-6 text-center mb-5"><img class="img-visi" src="<?= base_url('dist/img/history.png'); ?>"></div>
+        <div class="col-md-6 text-justify">
             <p>Sejarah organisasi Cyber Creative kami dimulai pada tahun 2008 di Sekolah SMK Insan Kreatif yang didirikan oleh 10 Anak dari Jurusan Teknik Elektronika Industri & mereka sempat mengajukan proposal untuk mendirikan organisasi ini namun ditolak 3 kali oleh kepala sekolah dan akhir nya dipercobaan ke 4 proposal diterima oleh kepala sekolah dan berdirilah organisasi ini hingga sekarang di generasi ke - 12</p>
         </div>
-        <div class="col-md-6 text-justify" data-aos="fade-left">
+        <div class="col-md-6 text-justify">
             <p>Mencetak generasi yang memiliki keseimbangan IPTEK dan IMTAQ. Mendidik siswa/siswi yang memiliki kemampuan di bidang teknologi. Mendidik siswa/siswi untuk belajar berorganisasi yang dapat bermanfaat dalam kehidupan bermasyarakat. Sebagai motivator untuk para siswa/siswi lain untuk terus menuntut ilmu dan tidak tertinggal oleh perkembangan zaman. Mengharumkan nama Yayasan Perguruan Al-Nur Cibinong.</p>
         </div>
-        <div class="col-md-6 text-center" data-aos="fade-right"><img class="img-visi" src="<?= base_url('dist/img/strategy.png'); ?>"></div>
+        <div class="col-md-6 text-center"><img class="img-visi" src="<?= base_url('dist/img/strategy.png'); ?>"></div>
     </div>
 </div>
 
 <div class="container mt-5">
-    <h1 align="center" class="mb-5" data-aos="fade-up">Kegiatan Kami</h1>
+    <h1 align="center" class="mb-5">Kegiatan Kami</h1>
     <div class="row mt-5">
-        <div class="col-md-6" data-aos="fade-left"><img class="img-kegiatan" src="<?= base_url('dist/img/computer-and-man.png'); ?>"></div>
-        <div class="col-md-6" data-aos="fade-right">
+        <div class="col-md-6"><img class="img-kegiatan" src="<?= base_url('dist/img/computer-and-man.png'); ?>"></div>
+        <div class="col-md-6">
             <div class="card bg-blue">
                 <div class="card-body">
                     <div id="calendar"></div>
@@ -84,7 +116,7 @@
         <?php
         foreach ($artikel as $a) {
         ?>
-            <div class="col-md-3 mb-4" data-aos="fade-up">
+            <div class="col-md-3 mb-4">
                 <div class="card">
                     <img class="card-img-top" src="/dist/img/cover/<?= ($a['foto'] == '') ? 'book.jpg' : $a['foto']  ?>" alt="Card image cap">
                     <div class="card-body">

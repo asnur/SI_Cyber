@@ -26,8 +26,8 @@ class Login extends BaseController
 
     public function cek_login()
     {
-        $user = $this->request->getVar('user');
-        $pass = md5($this->request->getVar('pass'));
+        $user = htmlspecialchars($this->request->getVar('user'));
+        $pass = md5(htmlspecialchars($this->request->getVar('pass')));
         $cek_baris = $this->anggota->where(['username' => $user, 'password' => $pass, 'izin' => 1])->countAllResults();
         $cek_data = $this->anggota->where(['username' => $user, 'password' => $pass])->find();
         if ($cek_baris) {
@@ -78,12 +78,12 @@ class Login extends BaseController
             }
             return $randomNumber;
         }
-        $nama = $this->request->getVar('nama');
-        $jk = $this->request->getVar('jenis_kelamin');
-        $username = $this->request->getVar('username');
-        $password = md5($this->request->getVar('password'));
-        $angkatan = $this->request->getVar('angkatan');
-        $email = $this->request->getVar('email');
+        $nama = htmlspecialchars($this->request->getVar('nama'));
+        $jk = htmlspecialchars($this->request->getVar('jenis_kelamin'));
+        $username = htmlspecialchars($this->request->getVar('username'));
+        $password = md5(htmlspecialchars($this->request->getVar('password')));
+        $angkatan = htmlspecialchars($this->request->getVar('angkatan'));
+        $email = htmlspecialchars($this->request->getVar('email'));
         $code = generateRandomNumber();
         $izin = 0;
 
@@ -140,9 +140,9 @@ class Login extends BaseController
 
     public function update_verifikasi()
     {
-        $id = $this->request->getVar('id');
-        $username = $this->request->getVar('username');
-        $kode = $this->request->getVar('kode');
+        $id = htmlspecialchars($this->request->getVar('id'));
+        $username = htmlspecialchars($this->request->getVar('username'));
+        $kode = htmlspecialchars($this->request->getVar('kode'));
         $query = $this->anggota->where(['id' => $id])->first();
         $kode_asli = $query['code'];
         if (empty($kode)) {
@@ -228,7 +228,7 @@ class Login extends BaseController
             }
             return $randomNumber;
         }
-        $email_user = $this->request->getVar('email');
+        $email_user = htmlspecialchars($this->request->getVar('email'));
 
         $cek_baris = $this->anggota->where(['email' => $email_user])->countAllResults();
 

@@ -92,7 +92,7 @@
                                         <?php
                                         } else {
                                         ?>
-                                            <img id="blah" src="<? '/dist/img/' . $detail['foto']; ?>" class="img-user img-circle" />;
+                                            <img id="blah" src="<?= '/dist/img/' . $detail['foto']; ?>" class="img-user img-circle" />;
                                         <?php
                                         }
                                         ?>

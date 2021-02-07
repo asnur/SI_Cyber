@@ -21,18 +21,20 @@
     <link rel="stylesheet" href="/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
     <link rel="stylesheet" href="/plugins/summernote/summernote-bs4.css">
     <link rel="stylesheet" href="/plugins/fullcalendar/fullcalendar.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin="" />
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
 
         <!-- Navbar -->
-        <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+        <nav class="main-header navbar navbar-expand navbar-white navbar-light" style="background-color: #6BAFCF;">
             <!-- Left navbar links -->
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fa fa-bars"></i></a>
+                    <a class="nav-link text-white" data-widget="pushmenu" href="#" role="button"><i class="fa fa-bars"></i></a>
                 </li>
             </ul>
 
@@ -46,32 +48,30 @@
         <!-- /.navbar -->
 
         <!-- Main Sidebar Container -->
-        <aside class="main-sidebar sidebar-light-maroon elevation-4">
+        <aside class="main-sidebar sidebar-light-maroon elevation-4" style="background-color: #6BAFCF;">
             <!-- Brand Logo -->
             <a href="/admin/index" class="brand-link">
                 <img src="/dist/img/icon.png" alt="" class="brand-image img-circle">
-                <span class="brand-text">Cyber Creative</span>
+                <span class="brand-text text-white">Cyber Creative</span>
             </a>
 
             <!-- Sidebar -->
-            <div class="sidebar">
+            <div class="sidebar bg-light">
                 <!-- Sidebar user panel (optional) -->
                 <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                     <div class="image">
                         <img src="/dist/img/<?= $_SESSION['admin'][0]['foto'] ?>" class="img-circle elevation-2" alt="User Image">
                     </div>
                     <div class="info">
-                        <a href="#" class="d-block"><?= $_SESSION['admin'][0]['nama']; ?></a>
+                        <a href="#" class="d-block" style="font-weight:bold;"><?= $_SESSION['admin'][0]['nama']; ?></a>
                     </div>
                 </div>
 
                 <!-- Sidebar Menu -->
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                        <!-- Add icons to the links using the .nav-icon class
-                with font-awesome or any other icon font library -->
                         <li class="nav-item has-treeview">
-                            <a href="/admin/" class="nav-link">
+                            <a href="/admin/" class="nav-link text-white" style="background-color: #6BAFCF;">
                                 <i class="nav-icon fa fa-tachometer"></i>
                                 <p>
                                     Dashboard
@@ -79,7 +79,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="/admin/anggota" class="nav-link">
+                            <a href="/admin/anggota" class="nav-link text-white" style="background-color: #6BAFCF;">
                                 <i class="nav-icon fa fa-users"></i>
                                 <p>
                                     Anggota
@@ -87,7 +87,15 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="/admin/pendaftaran" class="nav-link">
+                            <a href="/admin/absen" class="nav-link text-white" style="background-color: #6BAFCF;">
+                                <i class="nav-icon fa fa-book"></i>
+                                <p>
+                                    Absen
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/admin/pendaftaran" class="nav-link text-white" style="background-color: #6BAFCF;">
                                 <i class="nav-icon fa fa-id-card"></i>
                                 <p>
                                     Pendaftaran
@@ -95,7 +103,15 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="/admin/prestasi" class="nav-link">
+                            <a href="/admin/donasi" class="nav-link text-white" style="background-color: #6BAFCF;">
+                                <i class="nav-icon fa fa-money"></i>
+                                <p>
+                                    Donasi
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/admin/prestasi" class="nav-link text-white" style="background-color: #6BAFCF;">
                                 <i class="nav-icon fa fa-trophy"></i>
                                 <p>
                                     Prestasi
@@ -103,7 +119,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="/admin/artikel" class="nav-link">
+                            <a href="/admin/artikel" class="nav-link text-white" style="background-color: #6BAFCF;">
                                 <i class="nav-icon fa fa-newspaper-o"></i>
                                 <p>
                                     Artikel
@@ -111,7 +127,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="/admin/agenda" class="nav-link">
+                            <a href="/admin/agenda" class="nav-link text-white" style="background-color: #6BAFCF;">
                                 <i class="nav-icon fa fa-calendar"></i>
                                 <p>
                                     Agenda
@@ -145,6 +161,9 @@
     <script src="/plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
     <script src="/plugins/datatables/jquery.dataTables.min.js"></script>
     <script src="/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+    <script src="/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+    <script src="/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
     <script src="/plugins/summernote/summernote-bs4.min.js"></script>
     <script src="/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
     <script src="/dist/js/adminlte.js"></script>
@@ -156,10 +175,67 @@
     <script src="/plugins/fullcalendar/fullcalendar.min.js"></script>
     <script>
         $(function() {
-            $('.textarea').summernote()
-        })
-    </script>
-    <script>
+            var oTable = $('#tableAbsen').DataTable({
+                "responsive": true,
+                "autoWidth": false
+            });
+
+
+            // $('#min').keyup(function(){
+            //     console.log($('#min').val());
+            // });
+
+
+            $("#min").datepicker({
+                dateFormat: "dd-mm-yy",
+                "onSelect": function(date) {
+                    minDateFilter = new Date(date).getTime();
+                    oTable.draw();
+                }
+            }).keyup(function() {
+                minDateFilter = new Date(this.value).getTime();
+                oTable.draw();
+            });
+
+            $("#max").datepicker({
+                dateFormat: "dd-mm-yy",
+                "onSelect": function(date) {
+                    maxDateFilter = new Date(date).getTime();
+                    oTable.draw();
+                }
+            }).keyup(function() {
+                maxDateFilter = new Date(this.value).getTime();
+                oTable.draw();
+            });
+
+        });
+
+        // Date range filter
+        minDateFilter = "";
+        maxDateFilter = "";
+
+        $.fn.dataTableExt.afnFiltering.push(
+            function(oSettings, aData, iDataIndex) {
+                if (typeof aData._date == 'undefined') {
+                    aData._date = new Date(aData[2]).getTime();
+                }
+
+                if (minDateFilter && !isNaN(minDateFilter)) {
+                    if (aData._date < minDateFilter) {
+                        return false;
+                    }
+                }
+
+                if (maxDateFilter && !isNaN(maxDateFilter)) {
+                    if (aData._date > maxDateFilter) {
+                        return false;
+                    }
+                }
+
+                return true;
+            }
+        );
+
         $(document).ready(function() {
             var calendar = $('#calendar').fullCalendar({
                 editable: true,
@@ -266,21 +342,26 @@
                 'success'
             );
         }
+        if (flashdata == 'Data Absen Telah diHapus') {
+            Swal.fire(
+                'Berhasil!',
+                flashdata,
+                'success'
+            );
+        }
     </script>
     <script>
-        $(function() {
-            $("#tableAnggota").DataTable({
-                "responsive": true,
-                "autoWidth": false,
-            });
-
-            $('.select2').select2()
-
-
-            $('.select2bs4').select2({
-                theme: 'bootstrap4'
-            })
+        $("#tableAnggota").DataTable({
+            "responsive": true,
+            "autoWidth": false,
         });
+
+        $('.select2').select2()
+
+
+        $('.select2bs4').select2({
+            theme: 'bootstrap4'
+        })
     </script>
     <script>
         function readURL(input) {
@@ -298,6 +379,13 @@
         $("#imgInp").change(function() {
             readURL(this);
         });
+    </script>
+    <script>
+        $('.btn-warning').click(function() {
+            var username = $(this).data('username');
+            $('.modal-body').html('');
+            $('.modal-body').html(`<embed style="width: 100%; height: 500px;" src="/admin/kartu_anggota/${username}"></embed>`);
+        })
     </script>
 </body>
 

@@ -35,6 +35,8 @@ $routes->get('/', 'User::index');
 $routes->delete('/admin/(:num)', 'Admin::hapus_anggota/$1');
 $routes->get('/kartu_anggota/(:any)', 'Admin::kartu_anggota/$1');
 $routes->delete('/admin/pendaftaran/(:num)', 'Admin::hapus_calon_anggota/$1');
+$routes->delete('/admin/donasi/(:num)', 'Admin::hapus_donasi/$1');
+$routes->delete('/admin/absen/(:num)', 'Admin::hapus_absen/$1');
 // $routes->get('/login', 'login::index');
 // $routes->post('/admin/tambah_agenda', 'admin::tambah_agenda');
 // $routes->get('login/verifikasi/(:any)', 'login::verifikasi/$1');
