@@ -4,7 +4,7 @@
 
 <div class="container" style="margin-top: 100px;">
     <div class="alert alert-danger alert-dismissible fade show" role="alert">
-        <strong>Pemberitahuan!</strong> Absen Akan di tutup setelah jam 07.15 WIB.
+        <strong>Pemberitahuan!</strong> Absen Akan di tutup setelah jam 07.00 WIB.
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
         </button>
@@ -17,7 +17,7 @@
                         <center>
                             <div id="my_camera" style="width: 320px; height:240px; border: 1px #000 solid;"></div>
 
-                            <button type="button" onClick="take_snapshot()" class="btn btn-success mt-3 mb-3" <?= (date('H') >= 19) ? 'disabled' : '' ?>><i class="fa fa-camera"></i> Ambil Foto</button>
+                            <button type="button" onClick="take_snapshot()" class="btn btn-success mt-3 mb-3" <?= (date('H') >= 24) ? 'disabled' : '' ?>><i class="fa fa-camera"></i> Ambil Foto</button>
                             <!-- <button onClick="saveSnap()" class="btn btn-success mt-3 mb-3"><i class="fa fa-camera"></i> Kirim Foto</button> -->
                             <!-- <input type=button value="Save Snapshot" onClick="saveSnap()"> -->
                             <div id="results"></div>

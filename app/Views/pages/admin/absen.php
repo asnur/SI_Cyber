@@ -106,13 +106,24 @@
                 <div class="modal-dialog modal-lg" role="document">
                     <div class="modal-content">
                         <div class="modal-header" style="background-color: #6BAFCF;">
-                            <h2 class="modal-title text-white" id="exampleModalLabel">Peta Absen Siswa</h2>
+                            <h3 class="modal-title text-white" id="exampleModalLabel">Rekap Absen Siswa</h3>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
                         <div class="modal-body">
-                            <!-- <div class="col-md-12" style="height: 400px;" id="mapid"></div> -->
+                            <form class="form" action="/admin/rekap_absen" method="POST">
+                                <?= csrf_field(); ?>
+                                <label>Opsi Rekap</label>
+                                <select name="opsi" class="form-control" id="rekap">
+                                    <option value="Periodik">Periodik</option>
+                                    <option value="Semua">Semua</option>
+                                </select>
+                                <div class="row mt-2" id="periodik">
+
+                                </div>
+                                <button type="submit" class="btn btn-success mt-3"><i class="fa fa-print"></i> Cetak Rekapitulasi</button>
+                            </form>
                         </div>
                         <div class="modal-footer" style="background-color: #6BAFCF;">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

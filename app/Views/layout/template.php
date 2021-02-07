@@ -174,6 +174,29 @@
     <script src="/plugins/moment/moment.min.js"></script>
     <script src="/plugins/fullcalendar/fullcalendar.min.js"></script>
     <script>
+        $("#rekap")
+            .change(function() {
+                $("#rekap option:selected");
+                var isi = $('#rekap').val();
+                if (isi == "Semua") {
+                    str = "";
+                } else if (isi == "Periodik") {
+                    str = `
+                <div class="col-md-6">
+                    <label>Dari Tanggal</label>
+                    <input class="form-control" type="date" name="from" required>
+                </div>
+                <div class="col-md-6">
+                    <label>Sampai Tanggal</label>
+                    <input class="form-control" type="date" name="to" required>
+                </div>
+                `
+                }
+                $("#periodik").html(str);
+            })
+            .trigger("change");
+    </script>
+    <script>
         $(function() {
             var oTable = $('#tableAbsen').DataTable({
                 "responsive": true,
@@ -214,7 +237,7 @@
         minDateFilter = "";
         maxDateFilter = "";
 
-        $.fn.dataTableExt.afnFiltering.push(
+        $.fn.dataTable.ext.search.push(
             function(oSettings, aData, iDataIndex) {
                 if (typeof aData._date == 'undefined') {
                     aData._date = new Date(aData[2]).getTime();

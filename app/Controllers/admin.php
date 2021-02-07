@@ -1092,6 +1092,25 @@ class Admin extends BaseController
 		}
 	}
 
+	public function rekap_absen()
+	{
+		if (!isset($_SESSION['admin'])) {
+			return view('pages/login/index');
+		} else {
+			$from = $this->request->getVar('from');
+			$to = $this->request->getVar('to');
+			if ($from == '' && $to == '') {
+				$dataAbsen = $this->absen->findAll();
+			} else {
+				$dataAbsen = $this->absen->tanggal($from, $to);
+			}
+			$data = [
+				'absen' => $dataAbsen
+			];
+			return view('pages/admin/rekap', $data);
+		}
+	}
+
 	//--------------------------------------------------------------------
 
 }
