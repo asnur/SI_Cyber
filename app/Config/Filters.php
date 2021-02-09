@@ -26,7 +26,8 @@ class Filters extends BaseConfig
 					'/user/token',
 					'/user/map',
 					'/user/unset',
-					'/user/upload_absen'
+					'/user/upload_absen',
+					'/admin/kirim_chat'
 				]
 			],
 		],

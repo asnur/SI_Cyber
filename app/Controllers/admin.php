@@ -15,7 +15,11 @@ use App\Models\Donasi;
 
 use App\Models\Absen;
 
+use App\Models\Chat;
+
 use Config\Aes;
+
+use Pusher\Pusher;
 
 use PHPMailer\PHPMailer\PHPMailer;
 
@@ -33,6 +37,8 @@ class Admin extends BaseController
 	protected $agenda;
 	protected $donasi;
 	protected $absen;
+	protected $chat;
+	// protected $pusher;
 	// protected $aes;
 
 	public function __construct()
@@ -43,6 +49,8 @@ class Admin extends BaseController
 		$this->agenda = new Agenda();
 		$this->donasi = new Donasi();
 		$this->absen = new Absen();
+		$this->chat = new Chat();
+		// $this->pusher = new Pusher();
 		// $this->aes = new Aes();
 	}
 
@@ -59,7 +67,8 @@ class Admin extends BaseController
 				'jumlah_prestasi' => $this->prestasi_cyber->countAllResults(),
 				'jumlah_pendaftar' => $this->anggota_cyber->where(['status' => 'Calon'])->countAllResults(),
 				'jumlah_agenda' => $this->agenda->countAllResults(),
-				'jumlah_donasi' => $this->donasi->jumlah()
+				'jumlah_donasi' => $this->donasi->jumlah(),
+				'chat' => $this->chat->join('anggota_new', 'anggota_new.id=chat.id_user')->findAll()
 			];
 			return view('pages/admin/home', $data);
 		}
@@ -1110,6 +1119,63 @@ class Admin extends BaseController
 			return view('pages/admin/rekap', $data);
 		}
 	}
+
+	public function chat()
+	{
+		if (!isset($_SESSION['admin'])) {
+			return view('pages/login/index');
+		} else {
+			$data = [
+				'chat' => $this->chat->join('anggota_new', 'anggota_new.id=chat.id_user')->findAll()
+			];
+			return view('pages/admin/chat', $data);
+		}
+	}
+
+	public function kirim_chat()
+	{
+		if (!isset($_SESSION['admin'])) {
+			return view('pages/login/index');
+		} else {
+			$pesan = $this->request->getVar('pesan');
+			$id_user = $_SESSION['admin'][0]['id'];
+			$tanggal = date('Y-m-d');
+			$jam = date('H:i:s');
+
+			$insert = $this->chat->save([
+				'id_user' => $id_user,
+				'pesan' => $pesan,
+				'tanggal' => $tanggal,
+				'jam' => $jam
+			]);
+
+			$options = array(
+				'cluster' => 'ap1',
+				'useTLS' => true
+			);
+			$pusher = new Pusher(
+				'f0941439bce94b8c1be7',
+				'7b54ccee24a11586ddc6',
+				'1152351',
+				$options
+			);
+
+			$data = $this->chat->join('anggota_new', 'anggota_new.id=chat.id_user')->findAll();
+
+			if ($insert) {
+				$pusher->trigger('my-channel', 'my-event', $data);
+			}
+		}
+	}
+
+	// public function isi_chat()
+	// {
+	// 	$data = [
+	// 		'chat' => $this->chat->join('anggota_new', 'anggota_new.id=chat.id_user')->findAll()
+	// 	];
+	// 	return view('pages/admin/isi_chat', $data);
+	// 	// return json_encode($this->chat->join('anggota_new', 'anggota_new.id=chat.id_user')->findAll());
+	// }
 
 	//--------------------------------------------------------------------
 

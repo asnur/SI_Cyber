@@ -21,6 +21,7 @@
     <link rel="stylesheet" href="/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
     <link rel="stylesheet" href="/plugins/summernote/summernote-bs4.css">
     <link rel="stylesheet" href="/plugins/fullcalendar/fullcalendar.css" />
+    <link rel="stylesheet" href="/plugins/emojiarea/emojionearea.min.css" />
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin="" />
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -91,6 +92,14 @@
                                 <i class="nav-icon fa fa-book"></i>
                                 <p>
                                     Absen
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/admin/chat" class="nav-link text-white" style="background-color: #6BAFCF;">
+                                <i class="nav-icon fa fa-comment"></i>
+                                <p>
+                                    Forum
                                 </p>
                             </a>
                         </li>
@@ -173,6 +182,71 @@
     <script src="/plugins/select2/js/select2.full.min.js"></script>
     <script src="/plugins/moment/moment.min.js"></script>
     <script src="/plugins/fullcalendar/fullcalendar.min.js"></script>
+    <script src="/plugins/emojiarea/emojionearea.min.js"></script>
+    <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
+    <script>
+        // $(document).ready(function() {
+        //     $("#message").emojioneArea();
+        // });
+    </script>
+    <script>
+        // Enable pusher logging - don't include this in production
+        Pusher.logToConsole = true;
+
+        var pusher = new Pusher('f0941439bce94b8c1be7', {
+            cluster: 'ap1'
+        });
+
+        $(".direct-chat-messages").animate({
+            scrollTop: $(".direct-chat-messages").get(0).scrollHeight * 5
+        });
+        $("#message").emojioneArea();
+
+        var channel = pusher.subscribe('my-channel');
+        channel.bind('my-event', function(data) {
+            console.log(data);
+            $(".direct-chat-messages").html("");
+            for (var isi in data) {
+                $(".direct-chat-messages").append(`
+                <div class="direct-chat-msg ${(data[isi].id == <?= $_SESSION['admin'][0]['id'] ?>) ? 'right' : ''}">
+                    <div class="direct-chat-infos clearfix">
+                        <span class="direct-chat-name float-left">${data[isi].nama}</span>
+                        <span class="direct-chat-timestamp float-right">${data[isi].tanggal} ${data[isi].jam}</span>
+                    </div>
+                        <img class="direct-chat-img" src="/dist/img/${data[isi].foto}" alt="message user image">
+                    <div class="direct-chat-text">
+                    ${data[isi].pesan}
+                    </div>
+                </div>
+            `)
+                $(".direct-chat-messages").animate({
+                    scrollTop: $(".direct-chat-messages").get(0).scrollHeight * 5
+                });
+            }
+            // $("#message").val("-");
+        });
+    </script>
+    <script>
+        $("#form-chat").submit(function(event) {
+            event.preventDefault();
+            $.ajax({
+                url: '/admin/kirim_chat',
+                method: 'POST',
+                data: {
+                    pesan: $("#message").val()
+                },
+                success: function() {
+                    // $(".direct-chat-messages").html("");
+                    $(".emojionearea-editor").html('');
+                    $("#message").val("");
+                    // $(".direct-chat-messages").load("/admin/isi_chat");
+                    // $(".direct-chat-messages").animate({
+                    //     scrollTop: $(".direct-chat-messages").get(0).scrollHeight
+                    // }, 1)
+                }
+            })
+        })
+    </script>
     <script>
         $("#rekap")
             .change(function() {
